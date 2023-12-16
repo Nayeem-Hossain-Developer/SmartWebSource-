@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// admin
+use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('admin/login',[AdminAuthController::class,'login'])->name('admin.login');
+
+Route::group(['prefix'=>'admin','as'=> 'admin.'],function(){
+    //city controller start
+    Route::prefix('city')->as('city.')->controller(CityController::class)->group(function(){
+        Route::get('/','index')->name('index');
+    });
+
 });
+
