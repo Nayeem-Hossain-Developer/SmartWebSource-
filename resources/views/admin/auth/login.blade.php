@@ -20,10 +20,14 @@
     <div class="card-header text-center">
       <a href="javascript:void(0)" class="h1"><b>Admin Login</b></a>
     </div>
+
     <div class="card-body">
-      <form action="{{ route('admin.login') }}" method="post">
+      @if($msg=Session::get('invalid'))
+         <div class="alert alert-danger mb-3">{{$msg}}</div>
+      @endif
+      <form action="{{ route('admin.login.post') }}" method="post">
         @csrf
-        <div class="input-group mb-3">
+        <div class="input-group">
           <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
@@ -32,11 +36,11 @@
           </div>
         </div>
         @error('email')
-            <span class="invalid-feedback" role="alert">
+            <span class="text-danger">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-        <div class="input-group mb-3">
+        <div class="input-group mt-3">
           <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
@@ -45,11 +49,12 @@
           </div>
         </div>
         @error('password')
-            <span class="invalid-feedback" role="alert">
+            <span class="text-danger">
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-        <div class="row">
+
+        <div class="row mt-3">
           <div class="col-8">
             <div class="icheck-primary">
               <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -76,5 +81,7 @@
 <script src="{{asset('admin')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+{{-- <script src="{{asset('admin')}}/build/js/ajax_form_submit.js"></script>
+<script src="{{ asset('admin') }}/build/js/sweetalert.min.js"></script> --}}
 </body>
 </html>

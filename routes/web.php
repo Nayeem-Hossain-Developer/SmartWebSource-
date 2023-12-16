@@ -17,8 +17,9 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 */
 
 Route::get('admin/login',[AdminAuthController::class,'login'])->name('admin.login');
+Route::post('login/post',[AdminAuthController::class,'postLogin'])->name('admin.login.post');
 
-Route::group(['prefix'=>'admin','as'=> 'admin.'],function(){
+Route::group(['prefix'=>'admin','as'=> 'admin.','middleware'=>'auth:admin'],function(){
     //city controller start
     Route::prefix('city')->as('city.')->controller(CityController::class)->group(function(){
         Route::get('/','index')->name('index');
