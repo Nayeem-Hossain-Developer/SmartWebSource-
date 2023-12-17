@@ -22,9 +22,14 @@ class CityController extends Controller
         return view($this->folderPath.'index');
     }
 
-    public function data()
+    public function data(Request $request)
     {
-        $city = City::get();
+        $city = City::when($request->state,function($query,$state){
+            $query->where('state_name',$state);
+        })->when($request->country,function($query,$country){
+            $query->where('county_name',$country);
+        })->get();
+
         return DataTables::of($city)
             ->addIndexColumn()
             ->rawColumns(['action'])

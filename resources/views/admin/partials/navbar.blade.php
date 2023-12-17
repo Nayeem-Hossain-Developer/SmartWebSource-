@@ -32,7 +32,7 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                User
+                City
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>

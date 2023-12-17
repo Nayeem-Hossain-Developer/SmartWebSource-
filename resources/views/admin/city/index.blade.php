@@ -11,30 +11,12 @@
 
 @section('content')
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">City List</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">City List</li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
-
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
-                    <div class="col-md-12 mb-3">
+                    <div class="col-md-12 my-3">
                         <div class="text-right">
                             <a href="{{route('admin.city.create')}}" class="btn btn-info dynamic-modal-md">+ Add City</a>
                         </div>
@@ -46,6 +28,22 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                <div class="card px-3 py-2">
+                                    <div class="row">
+                                        <div class="col-md-5 mb-2">
+                                            <label for="">State</label>
+                                            <input type="text" class="form-control state" value="">
+                                        </div>
+                                        <div class="col-md-5 mb-2">
+                                            <label for="">Country</label>
+                                            <input type="text" class="form-control country" value="">
+                                        </div>
+                                        <div class="col-md-2 mb-2">
+                                              <label for=""></label>
+                                              <button class="btn btn-primary btn-block search mt-1">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <table class="table table-striped datatable-data no-wrap" width="100%" id="datatable">
                                     <thead>
                                         <tr>
@@ -89,10 +87,16 @@
     <script src="{{ asset('admin') }}/build/js/sweetalert.min.js"></script>
 
     <script>
-     $('.datatable-data').DataTable({
+    var table = $('.datatable-data').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{route('admin.city.data')}}",
+        ajax: {
+          url: "{{route('admin.city.data')}}",
+          data: function (d) {
+                d.state = $('.state').val(),
+                d.country = $('.country').val()
+            }
+        },
         order: [
             [0, 'Desc']
         ],
@@ -123,6 +127,10 @@
                 orderable: false,
             },
         ]
+    });
+
+    $(document).on('click','.search', function() {
+        table.draw();
     });
 </script>
 @endpush
