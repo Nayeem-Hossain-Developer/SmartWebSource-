@@ -81,7 +81,5 @@
 <script src="{{asset('admin')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-{{-- <script src="{{asset('admin')}}/build/js/ajax_form_submit.js"></script>
-<script src="{{ asset('admin') }}/build/js/sweetalert.min.js"></script> --}}
 </body>
 </html>

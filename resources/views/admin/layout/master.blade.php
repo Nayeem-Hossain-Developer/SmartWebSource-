@@ -52,6 +52,16 @@
 </div>
 <!-- ./wrapper -->
 
+<div class="modal fade" id="dynamic-modal-md">
+    <div class="modal-dialog">
+      <div class="modal-content" id="dynamic-modal-content">
+
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <!-- jQuery -->
 <script src="{{asset('admin')}}/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -59,6 +69,22 @@
 <script src="{{asset('admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('admin')}}/dist/js/adminlte.js"></script>
+
+<script>
+    $(document).on('click','.dynamic-modal-md',function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            url:url,
+            type:'get',
+            success: function(response){
+            $('#dynamic-modal-md').modal('show');
+            $("#dynamic-modal-content").html(response);
+            }
+        })
+    });
+</script>
+
 @stack('per_page_js')
 </body>
 </html>

@@ -2,100 +2,127 @@
 
 @section('title','Admin | City List')
 
+@push('per_page_css')
+    <link rel="stylesheet" href="{{ asset('/') }}admin/datatable/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="{{ asset('/') }}admin/datatable/css/ajax_libs_twitter-bootstrap_4.5.2_css_bootstrap.css">
+    <link rel="stylesheet" href="{{ asset('/') }}admin/datatable/css/datatable_css_responsive.bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('/') }}admin/datatable/css/datatable_css_buttons.dataTables.min.css">
+@endpush
+
 @section('content')
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">City List</h1>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-<section class="content">
-    <div class="container-fluid">
-
-      <!-- Main row -->
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header bg-primary">
-              <h3 class="card-title">City List</h3>
-
-              <div class="card-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0 mt-3">
-              <table class="table table-hover table-bordered text-nowrap">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-success">Approved</span></td>
-                    <td>
-                      <a href="" class="btn btn-info btn-sm">View</a>
-                      <a href="" class="btn btn-primary btn-sm">Update</a>
-                      <a href="" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>219</td>
-                    <td>Alexander Pierce</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-warning">Pending</span></td>
-                    <td>
-                      <a href="" class="btn btn-info btn-sm">View</a>
-                      <a href="" class="btn btn-primary btn-sm">Update</a>
-                      <a href="" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer d-flex border-top">
-              <div class="show-entries">
-                <span>Showing 1 to 10 of 57 entries</span>
-              </div>
-              <div class="paginate ml-auto">
-                <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-              </ul>
-              </div>
-            </div>
-          </div>
-          <!-- /.card -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">City List</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">City List</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
         </div>
-      </div>        <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
-  </section>
-</div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="text-right">
+                            <a href="{{route('admin.city.create')}}" class="btn btn-info dynamic-modal-md">+ Add City</a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header mb-3">
+                                <h3 class="card-title">City List</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table table-striped datatable-data no-wrap" width="100%" id="datatable">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>City</th>
+                                            <th>City Ascii</th>
+                                            <th>State Id</th>
+                                            <th>Country</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
 @endsection
+
+
+@push('per_page_js')
+    <script src="{{ asset('admin') }}/datatable/js/js_jquery.dataTables.min.js"></script>
+    <script src="{{ asset('admin') }}/datatable/js/js_dataTables.bootstrap4.min.js"></script>
+    <script src="{{ asset('admin') }}/datatable/js/responsive_2.2.9_js_dataTables.responsive.min.js"></script>
+    <script src="{{ asset('admin') }}/datatable/js/buttons_2.2.2_js_dataTables.buttons.min.js"></script>
+    <script src="{{ asset('admin') }}/datatable/js/buttons_2.2.2_js_buttons.print.min.js"></script>
+    <script src="{{ asset('admin') }}/datatable/js/buttons_2.2.2_js_buttons.html5.min.js"></script>
+    <script src="{{ asset('admin') }}/datatable/js/ajax_libs_pdfmake_0.1.53_vfs_fonts.js"></script>
+    <script src="{{ asset('admin') }}/datatable/js/ajax_libs_pdfmake_0.1.53_pdfmake.min.js"></script>
+    <script src="{{ asset('admin') }}/datatable/js/ajax_libs_jszip_3.1.3_jszip.min.js"></script>
+    <script src="{{ asset('admin') }}/datatable/js/datatables.init.js"></script>
+    <script src="{{asset('admin')}}/build/js/ajax_form_submit.js"></script>
+    <script src="{{ asset('admin') }}/build/js/sweetalert.min.js"></script>
+
+    <script>
+     $('.datatable-data').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{route('admin.city.data')}}",
+        order: [
+            [0, 'Desc']
+        ],
+        columns: [
+            {
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex'
+            },
+            {
+                data: 'city',
+                name: 'city'
+            },
+            {
+                data: 'city_ascii',
+                name: 'city_ascii'
+            },
+            {
+                data: 'state_id',
+                name: 'state_id'
+            },
+            {
+                data: 'county_name',
+                name: 'county_name'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+            },
+        ]
+    });
+</script>
+@endpush

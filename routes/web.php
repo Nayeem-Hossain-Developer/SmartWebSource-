@@ -23,6 +23,10 @@ Route::group(['prefix'=>'admin','as'=> 'admin.','middleware'=>'auth:admin'],func
     //city controller start
     Route::prefix('city')->as('city.')->controller(CityController::class)->group(function(){
         Route::get('/','index')->name('index');
+        Route::get('/data','data')->name('data');
+        Route::get('/create','create')->name('create');
+        Route::post('/store','store')->name('store');
+        Route::get('/view/{id}','view')->name('view');
     });
 
 });
