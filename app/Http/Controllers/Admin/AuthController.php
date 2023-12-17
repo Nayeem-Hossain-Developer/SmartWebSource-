@@ -26,7 +26,6 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-
         $credentials = $request->only('email', 'password');
         if (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->route('admin.city.index')->withSuccess('You have Successfully login!');

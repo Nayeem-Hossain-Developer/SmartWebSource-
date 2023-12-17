@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 
+//frontend
+use App\Http\Controllers\Frontend\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +18,7 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//admin route start
 Route::get('admin/login',[AdminAuthController::class,'login'])->name('admin.login');
 Route::post('login/post',[AdminAuthController::class,'postLogin'])->name('admin.login.post');
 
@@ -30,4 +33,7 @@ Route::group(['prefix'=>'admin','as'=> 'admin.','middleware'=>'auth:admin'],func
     });
 
 });
+
+//frontend route start
+Route::get('/',[HomeController::class,'index'])->name('frontend.home');
 
