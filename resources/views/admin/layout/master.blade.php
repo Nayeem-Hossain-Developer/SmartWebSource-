@@ -62,6 +62,16 @@
     <!-- /.modal-dialog -->
 </div>
 
+<div class="modal fade" id="dynamic-modal-lg">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" id="dynamic-lg-modal-content">
+
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <!-- jQuery -->
 <script src="{{asset('admin')}}/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -80,6 +90,19 @@
             success: function(response){
             $('#dynamic-modal-md').modal('show');
             $("#dynamic-modal-content").html(response);
+            }
+        })
+    });
+
+    $(document).on('click','.dynamic-modal-lg',function(e){
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $.ajax({
+            url:url,
+            type:'get',
+            success: function(response){
+            $('#dynamic-modal-lg').modal('show');
+            $("#dynamic-lg-modal-content").html(response);
             }
         })
     });

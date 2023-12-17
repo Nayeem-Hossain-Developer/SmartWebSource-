@@ -29,7 +29,7 @@ class CityController extends Controller
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->addColumn('action', function (City $city) {
-                return '<a href="'.route("admin.city.view",encrypt($city->id)).'" class="btn btn-sm btn-warning dynamic-modal-md mr-2">View</a>';
+                return '<a href="'.route("admin.city.view",['id'=>$city->id]).'" class="btn btn-sm btn-warning dynamic-modal-lg mr-2">View</a>';
             })
             ->make(true);
     }
@@ -46,5 +46,10 @@ class CityController extends Controller
 
         Excel::import(new CityImport, $request->file('excel_file')->store('temp'));
         return response()->json(['success' => 'City import successfully!']);
+    }
+
+    public function view($id){
+        $city = City::find($id);
+        return view($this->folderPath.'modals.view',compact('city'));
     }
 }
