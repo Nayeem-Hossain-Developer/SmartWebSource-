@@ -5,10 +5,24 @@
                 <div class="mb-3">
                     <input
                             type="text"
-                            v-model="name"
+                            v-model="city"
+                            @keyup="applyFilters"
+                            placeholder="Search City..."
+                            class="me-1"
+                        />
+                         <input
+                            type="text"
+                            v-model="state"
+                            @keyup="applyFilters"
+                            placeholder="Search State..."
+                            class="me-1"
+                        />
+                        <input
+                            type="text"
+                            v-model="country"
                             @keyup="applyFilters"
                             placeholder="Search Country..."
-                            class=""
+                            class="me-1"
                         />
                 </div>
                  <div class="card card-body">
@@ -50,20 +64,20 @@ export default {
     Pagination,
     Link
   },
-  setup () {
-    let name = ref('');
-  },
   props: {
     cities: Object,
   },
+  setup () {
+    const city = ref('');
+    const state = ref('');
+    const country = ref('');
+  },
  methods: {
         applyFilters() {
-            router.get('/', { name: this.name })
-            .then(response => {
-               this.cities = response.data;
-            })
-            .catch(error => {
-               console.error(error);
+            router.get('/', { city: this.city,state: this.state,country: this.country },
+            {
+               preserveState: true,
+               replace: true,
             });
         },
     },

@@ -10,9 +10,16 @@ use App\Models\City;
 class HomeController extends Controller
 {
     public function index(Request $request){
-        $cities = City::when($request->name,function($query,$name){
-            $query->where('county_name','like','%'.$name.'%');
-        })->paginate(10);
+        $cities = City::when($request->city,function($query,$city){
+            $query->where('city','like','%'.$city.'%');
+        })
+        ->when($request->state,function($query,$state){
+            $query->where('state_name','like','%'.$state.'%');
+        })
+        ->when($request->country,function($query,$country){
+            $query->where('county_name','like','%'.$country.'%');
+        })
+        ->paginate(10)->withQueryString();
         return Inertia::render('Home',['cities' => $cities]);
     }
 }
